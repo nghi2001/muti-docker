@@ -1,6 +1,6 @@
 sudo: required
 language: generic
-service:
+services:
   - docker
 before_install: 
   - docker build -t react-test -f ./client/Dockerfile.dev ./client

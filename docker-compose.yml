@@ -9,7 +9,7 @@ services:
     image: 'redis:latest'
   api:
     build: 
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./server
     volumes:
       - /app/node_modules
@@ -24,7 +24,7 @@ services:
       - PGPORT=5432
   client:
     build: 
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./client
     volumes:
       - /app/node_modules
@@ -44,4 +44,4 @@ services:
       context: ./nginx
     restart: always
     ports:
-      - 3050:80
+      - 8000:80

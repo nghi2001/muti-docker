@@ -5,15 +5,20 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    restart: always
   redis:
     image: 'redis:latest'
+    restart: always
   api:
     build: 
       dockerfile: Dockerfile
       context: ./server
+    ports:
+      - 8000:5000
     volumes:
       - /app/node_modules
       - ./server:/app
+    restart: always
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -29,6 +34,7 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+    restart: always
     environment:
       - WDS_SOCKET_PORT=0
   worker:
@@ -38,6 +44,7 @@ services:
     volumes:
       - /app/node_modules
       - ./worker:/app
+    restart: always
   nginx:
     build: 
       dockerfile: Dockerfile.dev

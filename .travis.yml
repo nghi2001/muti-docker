@@ -8,19 +8,20 @@ script:
   - docker run -e CI=true react-test npm run test
 
 affer_success:
-  - docker build -t nghi/multi-client ./client
-  - docker build -t nghi/multi-nginx ./nginx
-  - docker build -t nghi/multi-api ./server
-  - docker build -t nghi/multi-worker ./worker
+  - docker build -t nghi-multi-client ./client
+  - docker build -t nghi-multi-nginx ./nginx
+  - docker build -t nghi-multi-api ./server
+  - docker build -t nghi-multi-worker ./worker
   - docker ps
   - docker images -a
   - docker logout
   - echo "$dockerpass" | docker login -u "$dockerid" --password-stdin
-  - docker tag nghi/multi-client nguyenduynghi2001/nghi/multi-client
-  - docker push nguyenduynghi2001/nghi/multi-client
-  - docker tag nghi/multi-nginx nguyenduynghi2001/nghi/multi-nginx
-  - docker push nguyenduynghi2001/nghi/multi-nginx
-  - docker tag nghi/multi-api nguyenduynghi2001/nghi/multi-api
-  - docker push nguyenduynghi2001/nghi/multi-api
-  - docker tag nghi/multi-worker nguyenduynghi2001/nghi/multi-worker
-  - docker push nguyenduynghi2001/nghi/multi-worker
+  - docker tag nghi-multi-client nguyenduynghi2001/nghi-multi-client
+  - docker push nguyenduynghi2001/nghi-multi-client
+  - docker tag nghi-multi-nginx nguyenduynghi2001/nghi-multi-nginx
+  - docker push nguyenduynghi2001/nghi-multi-nginx
+  - docker tag nghi-multi-api nguyenduynghi2001/nghi-multi-api
+  - docker push nguyenduynghi2001/nghi-multi-api
+  - docker tag nghi-multi-worker nguyenduynghi2001/nghi-multi-worker
+  - docker push nguyenduynghi2001/nghi-multi-worker
+  - docker image -a

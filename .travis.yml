@@ -12,6 +12,7 @@ affer_success:
   - docker build -t nghi/multi-nginx ./nginx
   - docker build -t nghi/multi-api ./server
   - docker build -t nghi/multi-worker ./worker
+  - docker ps
   - echo "$dockerpass" | docker login -u "$dockerid" --password-stdin
   - docker push nghi/multi-client
   - docker push nghi/multi-nginx

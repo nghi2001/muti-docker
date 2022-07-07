@@ -1,47 +1,33 @@
 version: '3.8'
 services:
-  postgres:
-    image: 'postgres:latest'
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-  redis:
-    image: 'redis:latest'
   api:
-    build: 
-      dockerfile: Dockerfile.dev
-      context: ./server
-    volumes:
-      - /app/node_modules
-      - ./server:/app
+    image: "nguyenduynghi2001/nghi-multi-api"
+    mem_limit: 128m
     environment:
-      - REDIS_HOST=redis
+      - REDIS_HOST=docker-multi.wd9mvx.ng.0001.use1.cache.amazonaws.com
       - REDIS_PORT=6379
-      - PGUSER=postgres
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGPASSWORD=postgres
+      - PGUSER=postgrest
+      - PGHOST=multi-docker-postgres.cw4oevoa0r0s.us-east-1.rds.amazonaws.com
+      - PGDATABASE=postgrest
+      - PGPASSWORD=postgrest
       - PGPORT=5432
+    env_file:
+      - .env
   client:
-    build: 
-      dockerfile: Dockerfile.dev
-      context: ./client
-    volumes:
-      - /app/node_modules
-      - ./client:/app
+    image: "nguyenduynghi2001/nghi-multi-client"
+    mem_limit: 128m
     environment:
       - WDS_SOCKET_PORT=0
   worker:
-    build: 
-      dockerfile: Dockerfile.dev
-      context: ./worker
-    volumes:
-      - /app/node_modules
-      - ./worker:/app
+    image: "nguyenduynghi2001/nghi-multi-worker"
+    mem_limit: 128m
+    hostname: worker
+    environment:
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
   nginx:
-    build: 
-      dockerfile: Dockerfile.dev
-      context: ./nginx
-    restart: always
+    image: "nguyenduynghi2001/nghi-multi-nginx"
+    mem_limit: 128m
+    hostname: nginx
     ports:
-      - 3050:80
+      - "80:80"

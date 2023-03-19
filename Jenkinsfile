@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    enviroment {
+    environment {
         PROJECT_ID = 'multi-k8s-381107'
         CLUSTER_NAME = 'cluster-1'
         LOCATION = 'asia-southeast1-a'

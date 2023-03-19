@@ -33,7 +33,7 @@ pipeline {
                 sh "sed -i 's/multi-worker:latest/multi-worker:${env.BUILD_ID}/g' k8s/worker-deployment.yaml"
                 sh "sed -i 's/multi-server:latest/multi-server:${env.BUILD_ID}/g' k8s/server-deployment.yaml"
                 sh "sed -i 's/multi-client:latest/multi-client:${env.BUILD_ID}/g' k8s/client-deployment.yaml"
-                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'k8s/.*\.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'k8s/*', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
     }

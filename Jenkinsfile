@@ -14,15 +14,16 @@ pipeline {
         }
         stage ('Build Image') {
             steps {
-                try {
-                    sh "cd ./worker && docker build -t nguyenduynghi2001/multi-worker:${env.BUILD_ID} -f ./worker/Dockerfile . && cd .."
-                    sh "cd ./server && docker build -t nguyenduynghi2001/multi-server:${env.BUILD_ID} -f ./server/Dockerfile . && cd .."
-                    sh "cd ./client && docker build -t nguyenduynghi2001/multi-client:${env.BUILD_ID} -f ./client/Dockerfile . && cd .."
-                } catch (Exception e) {
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        echo "Build failed: ${e.message}"
+                script {
+                    try {
+                        sh "cd ./worker && docker build -t nguyenduynghi2001/multi-worker:${env.BUILD_ID} -f ./worker/Dockerfile . && cd .."
+                        sh "cd ./server && docker build -t nguyenduynghi2001/multi-server:${env.BUILD_ID} -f ./server/Dockerfile . && cd .."
+                        sh "cd ./client && docker build -t nguyenduynghi2001/multi-client:${env.BUILD_ID} -f ./client/Dockerfile . && cd .."
+                    } catch (err) {
+                        echo err.getMessage()
                     }
                 }
+                echo currentBuild.result
             }
         }
         stage('Push Image') {

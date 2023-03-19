@@ -17,25 +17,7 @@ pipeline {
                 script {
                     try {
                         sh "cd ./worker && docker build -t nguyenduynghi2001/multi-worker:${env.BUILD_ID} -f ./Dockerfile . && cd .."
-                    } catch (err) {
-                        echo err.getMessage()
-                        sh "exit 0"
-                    }
-                }
-            }
-            steps {
-                script {
-                    try {
                         sh "cd ./server && docker build -t nguyenduynghi2001/multi-server:${env.BUILD_ID} -f ./Dockerfile . && cd .."
-                    } catch (err) {
-                        echo err.getMessage()
-                        sh "exit 0"
-                    }
-                }
-            }
-            steps {
-                script {
-                    try {
                         sh "cd ./client && docker build -t nguyenduynghi2001/multi-client:${env.BUILD_ID} -f ./Dockerfile . && cd .."
                     } catch (err) {
                         echo err.getMessage()

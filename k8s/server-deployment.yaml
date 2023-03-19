@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: nguyenduynghi2001/multi-docker-server
+          image: nguyenduynghi2001/multi-docker-server:latest
           ports:
             - containerPort: 5000
           env:

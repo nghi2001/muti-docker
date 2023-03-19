@@ -14,9 +14,9 @@ pipeline {
         }
         stage ('Build Image') {
             steps {
-                sh "docker build -t nguyenduynghi2001/multi-worker:${env.BUILD_ID} -f ./worker/Dockerfile"
-                sh "docker build -t nguyenduynghi2001/multi-server:${env.BUILD_ID} -f ./server/Dockerfile"
-                sh "docker build -t nguyenduynghi2001/multi-client:${env.BUILD_ID} -f ./client/Dockerfile"
+                sh "docker build -t nguyenduynghi2001/multi-worker:${env.BUILD_ID} -f ./worker/Dockerfile ."
+                sh "docker build -t nguyenduynghi2001/multi-server:${env.BUILD_ID} -f ./server/Dockerfile ."
+                sh "docker build -t nguyenduynghi2001/multi-client:${env.BUILD_ID} -f ./client/Dockerfile ."
             }
         }
         stage('Push Image') {
